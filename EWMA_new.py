@@ -1,0 +1,60 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+T = 1
+
+d1 = pd.read_csv('change_0_1bit.csv',index_col = 'episode')
+d2 = pd.read_csv('change_0.01_1bit.csv',index_col = 'episode')
+d3 = pd.read_csv('change_0.05_1bit.csv',index_col = 'episode')
+d4 = pd.read_csv('change_0.1_1bit.csv',index_col = 'episode')
+d5 = pd.read_csv('change_0.5_1bit.csv',index_col = 'episode')
+d6 = pd.read_csv('change_1_1bit.csv',index_col = 'episode')
+d7 = pd.read_csv('change_2_1bit.csv',index_col = 'episode')
+d8 = pd.read_csv('change_5_1bit.csv',index_col = 'episode')
+d9 = pd.read_csv('change_10_bit1.csv',index_col = 'episode')
+d10 = pd.read_csv('change_30_1bit.csv',index_col = 'episode')
+d11 = pd.read_csv('change_50_1bit.csv',index_col = 'episode')
+d12 = pd.read_csv('change_0.05_1bit_plus.csv',index_col = 'episode')
+d13 = pd.read_csv('change_0.1_1bit_plus.csv',index_col = 'episode')
+d14 = pd.read_csv('change_0.5_1bit_plus.csv',index_col = 'episode')
+d15 = pd.read_csv('change_5000000_bit1.csv',index_col = 'episode')
+
+d1['0'] = d1['reward'].ewm(span = T).mean()
+d2['0.01'] = d2['reward'].ewm(span = T).mean()
+d3['0.05'] = d3['reward'].ewm(span = T).mean()
+d4['0.1'] = d4['reward'].ewm(span = T).mean()
+d5['0.5'] = d5['reward'].ewm(span = T).mean()
+d6['1'] = d6['reward'].ewm(span = T).mean()
+d7['2'] = d7['reward'].ewm(span = T).mean()
+d8['5'] = d8['reward'].ewm(span = T).mean()
+d9['10'] = d9['reward'].ewm(span = T).mean()
+d10['30'] = d10['reward'].ewm(span = T).mean()
+d11['50'] = d11['reward'].ewm(span = T).mean()
+d12['0.05(2)'] = d12['reward'].ewm(span = T).mean()
+d13['0.1(2)'] = d13['reward'].ewm(span = T).mean()
+d14['0.5(2)'] = d14['reward'].ewm(span = T).mean()
+d15['5000000'] = d15['reward'].ewm(span = T).mean()
+
+d1['0'].plot(label='sigma=0')
+d2['0.01'].plot(label='sigma=0.01')
+d3['0.05'].plot(label='sigma=0.05')
+d4['0.1'].plot(label='sigma=0.1')
+d5['0.5'].plot(label='sigma=0.5')
+d6['1'].plot(label='sigma=1')
+d7['2'].plot(label='sigma=2')
+d8['5'].plot(label='sigma=5')
+d9['10'].plot(label='sigma=10')
+d10['30'].plot(label='sigma=30')
+d11['50'].plot(label='sigma=50')
+# d12['0.05(2)'].plot(label='sigma=0.05(2)')
+# d13['0.1(2)'].plot(label='sigma=0.1(2)')
+# d14['0.5(2)'].plot(label='sigma=0.5(2)')
+d15['5000000'].plot(label='sigma=5000000')
+
+plt.title('Training Results with Different Noise Sigma of Communication ( Bit = 1; Span = 1; Episode_Max=3000 )')
+plt.ylabel('Reward')
+plt.legend()
+
+plt.show()
+
